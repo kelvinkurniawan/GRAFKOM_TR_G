@@ -1,6 +1,9 @@
 #include <iostream>
 #include <GL/freeglut.h>
 
+#include "_vector.h";
+#include "_loadModel.h";
+
 using namespace std;
 
 float xrotation = 0.0f;
@@ -12,6 +15,12 @@ float ymovement = 0.0f;
 float zmovement = 0.0f;
 
 void drawObject() {
+
+	Model model;
+
+	model.process();
+
+
 	glColor3f(1.0, 0.0, 0.0);
 
 	// Depan

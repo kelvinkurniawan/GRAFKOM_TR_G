@@ -81,6 +81,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>D:\BackupC\source\repos\TR_GRAFKOM\GRAFKOM_TR_G\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\BackupC\source\repos\TR_GRAFKOM\library;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -140,6 +142,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="_loadModel.h" />
+    <ClInclude Include="_vector.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\Model\Woman1.nfg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\Texture\Woman1.tga" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
