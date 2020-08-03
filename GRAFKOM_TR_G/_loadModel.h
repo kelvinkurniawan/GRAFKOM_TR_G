@@ -36,7 +36,7 @@ private:
 	void loadNrVertex() {
 		// Get total node
 		fscanf_s(this->loadModel, "NrVertices:%d", &totalNrVertex);
-		printf("NrVertices:%d\n", totalNrVertex);
+		//printf("NrVertices:%d\n", totalNrVertex);
 	}
 
 	void loadCoordinate() {
@@ -64,13 +64,13 @@ private:
 			this->myVertex[i].uv.x = u;
 			this->myVertex[i].uv.y = v;
 
-			printf("%d. pos:[%f, %f, %f]; norm:[%f, %f, %f]; binorm:[%f, %f, %f]; tgt:[%f, %f, %f]; uv:[%f, %f];\n", i, px, py, pz, nx, ny, nz, bx, by, bz, tx, ty, tz, u, v);
+			//printf("%d. pos:[%f, %f, %f]; norm:[%f, %f, %f]; binorm:[%f, %f, %f]; tgt:[%f, %f, %f]; uv:[%f, %f];\n", i, px, py, pz, nx, ny, nz, bx, by, bz, tx, ty, tz, u, v);
 		}
 	}
 
 	void loadNrIndices() {
 		fscanf_s(this->loadModel, "\nNrIndices:%d", &totalNrIndices);
-		printf("NrIndices:%d\n", totalNrIndices);
+		//printf("NrIndices:%d\n", totalNrIndices);
 	}
 
 	void trianglePattern() {
@@ -86,7 +86,7 @@ private:
 			this->myPattern[i].pos.y = y;
 			this->myPattern[i].pos.z = z;
 
-			printf("%d. %d %d %d\n", i, this->myPattern[i].pos.x, this->myPattern[i].pos.y, this->myPattern[i].pos.z);
+			//printf("%d. %d %d %d\n", i, this->myPattern[i].pos.x, this->myPattern[i].pos.y, this->myPattern[i].pos.z);
 
 		}
 
