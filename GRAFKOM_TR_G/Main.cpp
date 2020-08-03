@@ -138,6 +138,17 @@ void keyboardSpecialControl(int key, int x, int y) {
 	glutPostRedisplay();
 }
 
+void animate(int) {
+	glutTimerFunc(1000 / 30, animate, 0);
+
+	if (animated)
+		yrotation -= 1.0f;
+	else
+		yrotation = yrotation;
+
+	glutPostRedisplay();
+}
+
 int main(int argc, char** argv) {
 
 	glutInit(&argc, argv);
@@ -145,6 +156,7 @@ int main(int argc, char** argv) {
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 	glutInitWindowSize(500, 500);
 	glutInitWindowPosition(200, 100);
+	glutTimerFunc(0, animate, 0);
 	glutCreateWindow("TR GRAFIKA KOMPUTER DOSEN");
 
 	glutDisplayFunc(display);
