@@ -146,6 +146,7 @@
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="_config.h" />
     <ClInclude Include="_loadModel.h" />
     <ClInclude Include="_loadTexture.h" />
     <ClInclude Include="_vector.h" />

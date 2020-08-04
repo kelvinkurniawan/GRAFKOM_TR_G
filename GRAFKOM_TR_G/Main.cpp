@@ -4,6 +4,7 @@
 #include <vector>
 #include <GL/freeglut.h>
 
+#include "_config.h";
 #include "_vector.h";
 #include "_loadModel.h"
 #include "_loadTexture.h"
@@ -167,18 +168,20 @@ void animate(int) {
 
 int main(int argc, char** argv) {
 
+	Config conf;
+
 	glutInit(&argc, argv);
 
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
-	glutInitWindowSize(500, 500);
-	glutInitWindowPosition(200, 100);
-	glutTimerFunc(0, animate, 0);
+	glutInitWindowSize(conf.windowWidth, conf.windowHeight);
+	glutInitWindowPosition(conf.windowPositionX, conf.windowPositionY);
 	glutCreateWindow("TR GRAFIKA KOMPUTER DOSEN");
 
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
 	glutKeyboardFunc(keyboardControl);
 	glutSpecialFunc(keyboardSpecialControl);
+	glutTimerFunc(0, animate, 0);
 
 	cout << " << Help" << endl << endl;
 	cout << " >> W, A, S, D to rotate" << endl;
