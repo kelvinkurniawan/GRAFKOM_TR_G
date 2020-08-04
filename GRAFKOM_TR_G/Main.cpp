@@ -6,6 +6,7 @@
 
 #include "_vector.h";
 #include "_loadModel.h"
+#include "_loadTexture.h"
 
 using namespace std;
 
@@ -18,6 +19,17 @@ float xmovement = 0.0f;
 float ymovement = -0.900f;
 float zmovement = 0.0f;
 
+void LoadTextures() {
+	Tga info = Tga("./resources/Texture/Woman1.tga");
+
+	glEnable(GL_TEXTURE_2D);
+
+	GLuint texture = 0;
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glTexImage2D(GL_TEXTURE_2D, 0, info.HasAlphaChannel() ? GL_RGBA : GL_RGB, info.GetWidth(), info.GetWidth(), 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, info.GetPixels().data());
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+}
 
 void transform() {
 	glRotatef(xrotation, 1.0f, 0.0f, 0.0f); // Rotating horizontal
@@ -38,16 +50,20 @@ void display() {
 	glLoadIdentity();
 	glPushMatrix();
 
+	LoadTextures();
 
 	transform();
 
 
 	for (int i = 0; i < NTriangle; i++) {
-		glColor3f(0, 0, 0);
+		//glColor3f(0, 0, 0);
 
-		glBegin(GL_LINE_LOOP);
+		glBegin(GL_POLYGON);
+		glTexCoord2f(model.myVertex[model.myPattern[i].pos.x].uv.x, model.myVertex[model.myPattern[i].pos.x].uv.y);
 		glVertex3f(model.myVertex[model.myPattern[i].pos.x].pos.x, model.myVertex[model.myPattern[i].pos.x].pos.y, model.myVertex[model.myPattern[i].pos.x].pos.z);
+		glTexCoord2f(model.myVertex[model.myPattern[i].pos.y].uv.x, model.myVertex[model.myPattern[i].pos.y].uv.y);
 		glVertex3f(model.myVertex[model.myPattern[i].pos.y].pos.x, model.myVertex[model.myPattern[i].pos.y].pos.y, model.myVertex[model.myPattern[i].pos.y].pos.z);
+		glTexCoord2f(model.myVertex[model.myPattern[i].pos.z].uv.x, model.myVertex[model.myPattern[i].pos.z].uv.y);
 		glVertex3f(model.myVertex[model.myPattern[i].pos.z].pos.x, model.myVertex[model.myPattern[i].pos.z].pos.y, model.myVertex[model.myPattern[i].pos.z].pos.z);
 		glEnd();
 

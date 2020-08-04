@@ -26,6 +26,9 @@
     <ClInclude Include="_vector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="_loadTexture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\Model\Woman1.nfg">

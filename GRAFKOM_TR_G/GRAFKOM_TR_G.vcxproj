@@ -147,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="_loadModel.h" />
+    <ClInclude Include="_loadTexture.h" />
     <ClInclude Include="_vector.h" />
   </ItemGroup>
   <ItemGroup>
