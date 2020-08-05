@@ -10,15 +10,7 @@
 #include "_loadTexture.h"
 
 using namespace std;
-
-bool animated = false;
-float xrotation = 0.0f;
-float yrotation = 0.0f;
-
-float scale = 1.0f;
-float xmovement = 0.0f;
-float ymovement = 0.0f;
-float zmovement = 0.0f;
+Config conf;
 
 void LoadTextures() {
 	Tga info = Tga("./resources/Texture/Woman1.tga");
@@ -28,15 +20,15 @@ void LoadTextures() {
 	GLuint texture = 0;
 	glGenTextures(1, &texture);
 	glBindTexture(GL_TEXTURE_2D, texture);
-	glTexImage2D(GL_TEXTURE_2D, 0, info.HasAlphaChannel() ? GL_RGBA : GL_RGB, info.GetWidth(), info.GetWidth(), 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, info.GetPixels().data());
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, info.GetWidth(), info.GetWidth(), 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, info.GetPixels().data());
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 }
 
 void transform() {
-	glRotatef(xrotation, 1.0f, 0.0f, 0.0f); // Rotating horizontal
-	glRotatef(yrotation, 0.0f, 1.0f, 0.0f); // Rotating vertical
-	glScalef(scale, scale, scale); // Scalling
-	glTranslatef(xmovement, ymovement, zmovement); // Translate / Movement
+	glRotatef(conf.xrotation, 1.0f, 0.0f, 0.0f); // Rotating horizontal
+	glRotatef(conf.yrotation, 0.0f, 1.0f, 0.0f); // Rotating vertical
+	glScalef(conf.scale, conf.scale, conf.scale); // Scalling
+	glTranslatef(conf.xmovement, conf.ymovement, conf.zmovement); // Translate / Movement
 }
 
 void display() {
@@ -51,8 +43,6 @@ void display() {
 	glPushMatrix();
 
 	LoadTextures();
-
-	gluLookAt(0.0, 2.0, 8.0, 0.0, 1.5, 5.0, 0, 1, 0);
 
 	transform();
 
@@ -95,6 +85,7 @@ void reshape(int w, int h)
 	}
 
 	gluPerspective(20.0, w / h, 0.1f, 100.0f);
+	gluLookAt(0.0, 1, 8.0, 0.0, 1, 5.0, 0, 1, 0);
 
 	//glTranslatef(0, 0, 0);
 
@@ -103,42 +94,42 @@ void reshape(int w, int h)
 }
 
 void myinit() {
+	
 	glClearColor(1.0, 1.0, 1.0, 1.0);
 
 	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LEQUAL);
-	glClearDepth(1.0f);
+
 }
 
 void keyboardControl(unsigned char key, int x, int y) {
 	switch (key) {
 	case 'a':
-		yrotation += 5.0f;
+		conf.yrotation += 5.0f;
 		break;
 	case 'd':
-		yrotation -= 5.0f;
+		conf.yrotation -= 5.0f;
 		break;
 	case 'w':
-		xrotation += 5.0f;
+		conf.xrotation += 5.0f;
 		break;
 	case 's':
-		xrotation -= 5.0f;
+		conf.xrotation -= 5.0f;
 		break;
 	case 'q':
-		if (animated) {
-			animated = false;
+		if (conf.animated) {
+			conf.animated = false;
 			printf("Animated!");
 		}
 		else {
 			printf("Animated!");
-			animated = true;
+			conf.animated = true;
 		}
 		break;
 	case '1':
-		scale += 0.2f;
+		conf.scale += 0.2f;
 		break;
 	case '2':
-		scale -= 0.2f;
+		conf.scale -= 0.2f;
 		break;
 	case 27:
 		exit(1);
@@ -152,16 +143,16 @@ void keyboardSpecialControl(int key, int x, int y) {
 
 	switch (key) {
 	case 100:
-		xmovement -= 0.025f;
+		conf.xmovement -= 0.025f;
 		break;
 	case 101:
-		ymovement += 0.025f;
+		conf.ymovement += 0.025f;
 		break;
 	case 102:
-		xmovement += 0.025f;
+		conf.xmovement += 0.025f;
 		break;
 	case 103:
-		ymovement -= 0.025f;
+		conf.ymovement -= 0.025f;
 		break;
 	}
 
@@ -171,10 +162,10 @@ void keyboardSpecialControl(int key, int x, int y) {
 void animate(int) {
 	glutTimerFunc(1000 / 30, animate, 0);
 
-	if (animated)
-		yrotation -= 1.0f;
+	if (conf.animated)
+		conf.yrotation -= 1.0f;
 	else
-		yrotation = yrotation;
+		conf.yrotation = conf.yrotation;
 
 	glutPostRedisplay();
 }

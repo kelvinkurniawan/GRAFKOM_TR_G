@@ -22,7 +22,6 @@ private:
 
 	float px, py, pz, nx, ny, nz, bx, by, bz, tx, ty, tz, u, v;
 	int x, y, z;
-	char junk[200];
 
 	bool loadFile() {
 		// Opening file
