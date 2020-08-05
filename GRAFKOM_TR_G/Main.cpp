@@ -17,7 +17,7 @@ float yrotation = 0.0f;
 
 float scale = 1.0f;
 float xmovement = 0.0f;
-float ymovement = -0.900f;
+float ymovement = 0.0f;
 float zmovement = 0.0f;
 
 void LoadTextures() {
@@ -35,7 +35,6 @@ void LoadTextures() {
 void transform() {
 	glRotatef(xrotation, 1.0f, 0.0f, 0.0f); // Rotating horizontal
 	glRotatef(yrotation, 0.0f, 1.0f, 0.0f); // Rotating vertical
-	glRotatef(yrotation, 0.0f, 1.0f, 0.0f); // Rotating vertical
 	glScalef(scale, scale, scale); // Scalling
 	glTranslatef(xmovement, ymovement, zmovement); // Translate / Movement
 }
@@ -52,6 +51,8 @@ void display() {
 	glPushMatrix();
 
 	LoadTextures();
+
+	gluLookAt(0.0, 2.0, 8.0, 0.0, 1.5, 5.0, 0, 1, 0);
 
 	transform();
 
@@ -83,7 +84,17 @@ void reshape(int w, int h)
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
-	glViewport(0, 0, w, h);
+	if (w > h) {
+		glViewport(0, 0, w, w);
+		glTranslatef(0.0, -0.5, 0.0);
+		glRotatef(180.0, 0.0, 1.0, 0.0);
+		glScalef(-0.5, 0.5, -0.5);
+	}
+	else {
+		glViewport(0, 0, w, h);
+	}
+
+	gluPerspective(20.0, w / h, 0.1f, 100.0f);
 
 	//glTranslatef(0, 0, 0);
 
@@ -95,6 +106,8 @@ void myinit() {
 	glClearColor(1.0, 1.0, 1.0, 1.0);
 
 	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
+	glClearDepth(1.0f);
 }
 
 void keyboardControl(unsigned char key, int x, int y) {
