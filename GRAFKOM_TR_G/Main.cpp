@@ -20,6 +20,8 @@ float xmovement = 0.0f;
 float ymovement = 0.0f;
 float zmovement = 0.0f;
 
+bool WIREFRAME = false;
+
 void LoadTextures() {
 	Tga info = Tga("./resources/Texture/Woman1.tga");
 
@@ -58,9 +60,17 @@ void display() {
 
 
 	for (int i = 0; i < NTriangle; i++) {
-		//glColor3f(0, 0, 0);
 
-		glBegin(GL_POLYGON);
+		if (WIREFRAME)
+		{
+			glColor4f(0, 0, 0, 1.0);
+			glBegin(GL_LINE_LOOP);
+		}
+		else {
+			glColor4f(1, 1, 1, 0.0);
+			glBegin(GL_POLYGON);
+		}
+
 		glTexCoord2f(model.myVertex[model.myPattern[i].pos.x].uv.x, model.myVertex[model.myPattern[i].pos.x].uv.y);
 		glVertex3f(model.myVertex[model.myPattern[i].pos.x].pos.x, model.myVertex[model.myPattern[i].pos.x].pos.y, model.myVertex[model.myPattern[i].pos.x].pos.z);
 		glTexCoord2f(model.myVertex[model.myPattern[i].pos.y].uv.x, model.myVertex[model.myPattern[i].pos.y].uv.y);
@@ -142,6 +152,10 @@ void keyboardControl(unsigned char key, int x, int y) {
 		break;
 	case 27:
 		exit(1);
+		break;
+	case 'l':
+		if (WIREFRAME) WIREFRAME = false;
+		else WIREFRAME = true;
 		break;
 	}
 
