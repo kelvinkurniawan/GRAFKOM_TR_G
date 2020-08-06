@@ -15,4 +15,7 @@ public:
 	float xmovement = 0.0f;
 	float ymovement = 0.0f;
 	float zmovement = 0.0f;
+
+	bool WIREFRAME = false;
 };
+

@@ -6,13 +6,13 @@
 
 #include "_config.h";
 #include "_vector.h";
-#include "_loadModel.h"
-#include "_loadTexture.h"
+#include "_loadModel.h";
+#include "_loadTexture.h";
 
 using namespace std;
 Config conf;
 
-bool WIREFRAME = false;
+
 
 void LoadTextures() {
 	Tga info = Tga("./resources/Texture/Woman1.tga");
@@ -51,7 +51,7 @@ void display() {
 
 	for (int i = 0; i < NTriangle; i++) {
 
-		if (WIREFRAME)
+		if (conf.WIREFRAME)
 		{
 			glColor4f(0, 0, 0, 1.0);
 			glBegin(GL_LINE_LOOP);
@@ -145,8 +145,8 @@ void keyboardControl(unsigned char key, int x, int y) {
 		exit(1);
 		break;
 	case 'l':
-		if (WIREFRAME) WIREFRAME = false;
-		else WIREFRAME = true;
+		if (conf.WIREFRAME) conf.WIREFRAME = false;
+		else conf.WIREFRAME = true;
 		break;
 	}
 
